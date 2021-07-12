@@ -10,6 +10,7 @@ public class Module {
     private int key;
     private boolean detectable, toggled;
     public Category category;
+    public boolean visible = true;
 
     public Module(String name, String description, boolean detectable, boolean toggled, Category category) {
         this.name = name;

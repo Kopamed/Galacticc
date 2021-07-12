@@ -1,5 +1,6 @@
 package me.kopamed.module;
 
+import me.kopamed.module.render.ClickGUI;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ public class ModuleManager {
 
     public ModuleManager(){
         (modules = new ArrayList<Module>()).clear();
+        this.modules.add(new ClickGUI());
     }
 
     public Module getModule(String name) {
@@ -32,5 +34,9 @@ public class ModuleManager {
             }
         }
         return mods;
+    }
+
+    public void addModule(Module m){
+        this.modules.add(m);
     }
 }
