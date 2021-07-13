@@ -42,9 +42,9 @@ public class SettingsManager {
 		return out;
 	}
 	
-	public Setting getSettingByName(String name){
+	public Setting getSettingByName(Module mod, String name){
 		for(Setting set : getSettings()){
-			if(set.getName().equalsIgnoreCase(name)){
+			if(set.getName().equalsIgnoreCase(name) && set.getParentMod() == mod){
 				return set;
 			}
 		}

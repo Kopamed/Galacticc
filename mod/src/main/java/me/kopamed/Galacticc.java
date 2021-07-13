@@ -23,18 +23,23 @@ public class Galacticc
 
     public void init()
     {
+        // following 5 lines must be in this order or java has a stroke and dies
         MinecraftForge.EVENT_BUS.register(this);
         instance = this;
-        moduleManager = new ModuleManager();
         settingsManager = new SettingsManager();
+        moduleManager = new ModuleManager();
         clickGui = new ClickGui();
     }
 
     @SubscribeEvent
     public void key(InputEvent.KeyInputEvent e) {
         Minecraft mc = Minecraft.getMinecraft();
+        //make sure that we are in a game
         if (mc.theWorld == null || mc.thePlayer == null)
             return;
+
+        //Basically get the key id, go through the list of modules
+        //If module key is equal to the one pressed than we toggle the modules
         try{
             if (Keyboard.isCreated()) {
                 if (Keyboard.getEventKeyState()) {
@@ -48,6 +53,7 @@ public class Galacticc
                     }
                 }
             }
+            //In case java shits itself ft. my code
         } catch (Exception q) {
             q.printStackTrace();
         }
