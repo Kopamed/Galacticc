@@ -3,10 +3,12 @@ package me.kopamed.module;
 import me.kopamed.module.combat.AutoClicker;
 import me.kopamed.module.combat.Velocity;
 import me.kopamed.module.movement.Fly;
+import me.kopamed.module.movement.Speed;
 import me.kopamed.module.movement.Sprint;
+import me.kopamed.module.player.NoFall;
 import me.kopamed.module.render.ClickGUI;
+import me.kopamed.module.render.Fullbright;
 import me.kopamed.module.render.HUD;
-import net.minecraftforge.fml.common.Mod;
 
 import java.util.ArrayList;
 
@@ -21,6 +23,9 @@ public class ModuleManager {
         this.modules.add(new AutoClicker());
         this.modules.add(new Velocity());
         this.modules.add(new Fly());
+        this.modules.add(new NoFall());
+        this.modules.add(new Fullbright());
+        this.modules.add(new Speed());
     }
 
     public Module getModule(String name) {

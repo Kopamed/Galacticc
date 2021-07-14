@@ -18,7 +18,7 @@ public class AutoClicker extends Module {
     private long hold;
     private double speedLeft, speedRight;
     private double leftHoldLength, rightHoldLength;
-    private double leftMinCPS, leftMaxCPS, rightMinCPS, rightMaxCPS;
+    private float leftMinCPS, leftMaxCPS, rightMinCPS, rightMaxCPS;
     private boolean leftActive, rightActive;
 
     public AutoClicker() {
@@ -96,25 +96,25 @@ public class AutoClicker extends Module {
         leftActive = Galacticc.instance.settingsManager.getSettingByName(this, "Left Click").getValBoolean();
         rightActive = Galacticc.instance.settingsManager.getSettingByName(this, "Right Click").getValBoolean();
 
-        leftMinCPS = Galacticc.instance.settingsManager.getSettingByName(this, "Left MinCPS").getValDouble();
-        leftMaxCPS = Galacticc.instance.settingsManager.getSettingByName(this, "Left MaxCPS").getValDouble();
+        leftMinCPS = (float) Galacticc.instance.settingsManager.getSettingByName(this, "Left MinCPS").getValDouble();
+        leftMaxCPS = (float)Galacticc.instance.settingsManager.getSettingByName(this, "Left MaxCPS").getValDouble();
 
-        rightMinCPS = Galacticc.instance.settingsManager.getSettingByName(this, "Right MinCPS").getValDouble();
-        rightMaxCPS = Galacticc.instance.settingsManager.getSettingByName(this, "Right MaxCPS").getValDouble();
+        rightMinCPS = (float)Galacticc.instance.settingsManager.getSettingByName(this, "Right MinCPS").getValDouble();
+        rightMaxCPS = (float)Galacticc.instance.settingsManager.getSettingByName(this, "Right MaxCPS").getValDouble();
 
         if (leftMinCPS >= leftMaxCPS) {
-            Galacticc.instance.settingsManager.getSettingByName(this, "Left MaxCPS").setValDouble(leftMinCPS + 0.01);
-            Galacticc.instance.settingsManager.getSettingByName(this, "Left MinCPS").setValDouble(leftMaxCPS - 0.01);
+            Galacticc.instance.settingsManager.getSettingByName(this, "Left MaxCPS").setValDouble((float)leftMinCPS + 0.01F);
+            Galacticc.instance.settingsManager.getSettingByName(this, "Left MinCPS").setValDouble((float)leftMaxCPS - 0.01F);
 
-            leftMinCPS = Galacticc.instance.settingsManager.getSettingByName(this, "Left MinCPS").getValDouble();
-            leftMaxCPS = Galacticc.instance.settingsManager.getSettingByName(this, "Left MaxCPS").getValDouble();
+            leftMinCPS = (float)Galacticc.instance.settingsManager.getSettingByName(this, "Left MinCPS").getValDouble();
+            leftMaxCPS = (float)Galacticc.instance.settingsManager.getSettingByName(this, "Left MaxCPS").getValDouble();
         }
         if (rightMinCPS >= rightMaxCPS) {
-            Galacticc.instance.settingsManager.getSettingByName(this, "Right MaxCPS").setValDouble(rightMinCPS + 0.1);
-            Galacticc.instance.settingsManager.getSettingByName(this, "Right MinCPS").setValDouble(rightMaxCPS - 0.1);
+            Galacticc.instance.settingsManager.getSettingByName(this, "Right MaxCPS").setValDouble((float)rightMinCPS + 0.1F);
+            Galacticc.instance.settingsManager.getSettingByName(this, "Right MinCPS").setValDouble((float)rightMaxCPS - 0.1F);
 
-            rightMinCPS = Galacticc.instance.settingsManager.getSettingByName(this, "Right MinCPS").getValDouble();
-            rightMaxCPS = Galacticc.instance.settingsManager.getSettingByName(this, "Right MaxCPS").getValDouble();
+            rightMinCPS = (float)Galacticc.instance.settingsManager.getSettingByName(this, "Right MinCPS").getValDouble();
+            rightMaxCPS = (float)Galacticc.instance.settingsManager.getSettingByName(this, "Right MaxCPS").getValDouble();
         }
 
         // add -0.2 to make it slightly more random

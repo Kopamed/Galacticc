@@ -3,6 +3,11 @@ package me.kopamed.module.movement;
 
 import me.kopamed.module.Category;
 import me.kopamed.module.Module;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class Fly extends Module {
     public Fly(){
@@ -25,6 +30,14 @@ public class Fly extends Module {
         if (mc.thePlayer.capabilities.allowFlying) {
             mc.thePlayer.capabilities.allowFlying = false;
             mc.thePlayer.capabilities.isFlying = false;
+        }
+    }
+
+    @SubscribeEvent
+    public void PlayerTickEvent(TickEvent.PlayerTickEvent e) {
+        Set<Double> hash_Set = new HashSet<Double>();
+        if (e.player.height == 0) {
+            this.toggle();
         }
     }
 }
