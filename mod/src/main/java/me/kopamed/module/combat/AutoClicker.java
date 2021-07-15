@@ -1,3 +1,9 @@
+// add:
+// onlyBlocks
+// onlySword/Weapon
+// alloweat
+// allow bow
+
 package me.kopamed.module.combat;
 
 import io.netty.util.internal.ThreadLocalRandom;

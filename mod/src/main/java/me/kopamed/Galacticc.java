@@ -4,6 +4,7 @@ package me.kopamed;
 import me.kopamed.clickgui.ClickGui;
 import me.kopamed.module.Module;
 import me.kopamed.module.ModuleManager;
+import me.kopamed.module.misc.SafeSettings;
 import me.kopamed.settings.SettingsManager;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
@@ -28,6 +29,7 @@ public class Galacticc
         instance = this;
         settingsManager = new SettingsManager();
         moduleManager = new ModuleManager();
+        moduleManager.addModule(new SafeSettings());
         clickGui = new ClickGui();
     }
 
