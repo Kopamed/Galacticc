@@ -1,4 +1,8 @@
 # Galacticc
+![](https://img.shields.io/github/license/Kopamed/Galacticc)
+![](https://img.shields.io/github/languages/code-size/Kopamed/Galacticc?style=flat-square)
+![](https://img.shields.io/tokei/lines/github/Kopamed/Galacticc?style=flat-square)
+![](https://img.shields.io/github/languages/top/Kopamed/Galacticc) <br>
 1.8.9 ghost client tailored towards hypixel, and minigame PVP servers.<br>
 Discord:<br>
 <a href="https://discord.gg/N4zn4FwPcz"><img src="https://invidget.switchblade.xyz/N4zn4FwPcz" alt="https://discord.gg/N4zn4FwPcz"/></a>
