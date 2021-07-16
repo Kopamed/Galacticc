@@ -19,6 +19,7 @@ public class Speed extends Module {
 
     @SubscribeEvent
     public void PlayerTickEvent(TickEvent.PlayerTickEvent e) {
+        if (Galacticc.instance.destructed) {return;}
         if (e.player.onGround) {
             speed = (float) Galacticc.instance.settingsManager.getSettingByName(this, "Multiplier").getValDouble() / 10;
             //fuck

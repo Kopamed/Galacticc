@@ -3,6 +3,7 @@ package me.kopamed.settings;
 import java.util.ArrayList;
 
 //Your Imports
+import me.kopamed.Galacticc;
 import me.kopamed.module.Module;
 
 /**
@@ -68,6 +69,9 @@ public class Setting {
 	
 	public void setValString(String in){
 		this.sval = in;
+		if (Galacticc.instance.saveLoad != null) {
+			Galacticc.instance.saveLoad.save();
+		}
 	}
 	
 	public ArrayList<String> getOptions(){
@@ -80,6 +84,9 @@ public class Setting {
 	
 	public void setValBoolean(boolean in){
 		this.bval = in;
+		if (Galacticc.instance.saveLoad != null) {
+			Galacticc.instance.saveLoad.save();
+		}
 	}
 	
 	public double getValDouble(){
@@ -91,6 +98,9 @@ public class Setting {
 
 	public void setValDouble(double in){
 		this.dval = in;
+		if (Galacticc.instance.saveLoad != null) {
+			Galacticc.instance.saveLoad.save();
+		}
 	}
 	
 	public double getMin(){

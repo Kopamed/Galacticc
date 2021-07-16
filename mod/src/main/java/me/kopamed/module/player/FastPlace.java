@@ -42,6 +42,7 @@ public class FastPlace extends Module {
 
     @SubscribeEvent
     public void PlayerTickEvent(TickEvent.PlayerTickEvent e) {
+        if (Galacticc.instance.destructed) {return;}
         delay = (int) Galacticc.instance.settingsManager.getSettingByName(this, "Delay").getValDouble();
         onlyBlocks = Galacticc.instance.settingsManager.getSettingByName(this, "Only Blocks").getValBoolean();
 

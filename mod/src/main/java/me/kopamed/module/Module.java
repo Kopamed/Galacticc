@@ -1,5 +1,6 @@
 package me.kopamed.module;
 
+import me.kopamed.Galacticc;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -35,6 +36,9 @@ public class Module {
 
     public void setKey(int key) {
         this.key = key;
+        if (Galacticc.instance.saveLoad != null) {
+            Galacticc.instance.saveLoad.save();
+        }
     }
 
     public boolean isDetectable() {
@@ -53,6 +57,10 @@ public class Module {
         } else {
             this.onDisabled();
         }
+
+        if (Galacticc.instance.saveLoad != null) {
+            Galacticc.instance.saveLoad.save();
+        }
     }
 
     public String getName() {
@@ -70,6 +78,10 @@ public class Module {
             this.onEnabled();
         } else {
             this.onDisabled();
+        }
+
+        if (Galacticc.instance.saveLoad != null) {
+            Galacticc.instance.saveLoad.save();
         }
     }
 

@@ -17,6 +17,9 @@ public class HUD extends Module {
 
     @SubscribeEvent
     public void onRender(RenderGameOverlayEvent egoe) {
+        if (Galacticc.instance.destructed){
+            return;
+        }
         if (!egoe.type.equals(egoe.type.CROSSHAIRS)) {
             return;
         }

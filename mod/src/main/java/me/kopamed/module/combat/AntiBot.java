@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.google.common.collect.Ordering;
 import ibxm.Player;
+import me.kopamed.Galacticc;
 import me.kopamed.module.Category;
 import me.kopamed.module.Module;
 import net.minecraft.client.gui.GuiPlayerTabOverlay;
@@ -24,6 +25,7 @@ public class AntiBot extends Module {
 
     @SubscribeEvent
     public void onTick(TickEvent.PlayerTickEvent e) {
+        if (Galacticc.instance.destructed) {return;}
         for(int k = 0; k < mc.theWorld.playerEntities.size(); k++) {
             EntityPlayer ent = mc.theWorld.playerEntities.get(k);
             List<EntityPlayer> tabList = this.getTabPlayerList();

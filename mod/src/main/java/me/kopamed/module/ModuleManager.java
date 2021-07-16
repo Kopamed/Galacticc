@@ -4,6 +4,7 @@ import me.kopamed.module.combat.AntiBot;
 import me.kopamed.module.combat.AutoClicker;
 import me.kopamed.module.combat.Velocity;
 import me.kopamed.module.misc.SafeSettings;
+import me.kopamed.module.misc.SelfDestruct;
 import me.kopamed.module.movement.Fly;
 import me.kopamed.module.movement.Speed;
 import me.kopamed.module.movement.Sprint;
@@ -31,6 +32,7 @@ public class ModuleManager {
         //this.modules.add(new Speed());
         this.modules.add(new AntiBot());
         this.modules.add(new FastPlace());
+        this.modules.add(new SelfDestruct());
     }
 
     public Module getModule(String name) {

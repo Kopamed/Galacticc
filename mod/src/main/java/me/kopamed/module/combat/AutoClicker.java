@@ -54,6 +54,7 @@ public class AutoClicker extends Module {
 
     @SubscribeEvent
     public void onTick(TickEvent.RenderTickEvent e) {
+        if (Galacticc.instance.destructed) {return;}
         this.updateVals();
         //If none of the buttons are allowed to click, what is the point in generating clicktimes anyway?
         if (!leftActive && !rightActive) {

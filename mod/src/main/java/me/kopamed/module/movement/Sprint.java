@@ -1,5 +1,6 @@
 package me.kopamed.module.movement;
 
+import me.kopamed.Galacticc;
 import me.kopamed.module.Category;
 import me.kopamed.module.Module;
 import net.minecraft.client.Minecraft;
@@ -16,6 +17,7 @@ public class Sprint extends Module {
 
     @SubscribeEvent
     public void onPlayerTick(TickEvent.PlayerTickEvent e) {
+        if (Galacticc.instance.destructed) {return;}
         KeyBinding.setKeyBindState(mc.gameSettings.keyBindSprint.getKeyCode(), true);
     }
 

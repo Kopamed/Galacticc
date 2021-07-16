@@ -16,6 +16,7 @@ public class Velocity extends Module {
 
     @SubscribeEvent
     public void onLivingUpdate(LivingEvent.LivingUpdateEvent e) {
+        if (Galacticc.instance.destructed) {return;}
         float horizontal = (float)Galacticc.instance.settingsManager.getSettingByName(this, "Horizontal").getValDouble();
         float vertical = (float)Galacticc.instance.settingsManager.getSettingByName(this, "Vertical").getValDouble();
 

@@ -1,13 +1,16 @@
 package me.kopamed;
 
 
+import me.kopamed.autosave.SaveLoad;
 import me.kopamed.clickgui.ClickGui;
 import me.kopamed.module.Module;
 import me.kopamed.module.ModuleManager;
 import me.kopamed.module.misc.SafeSettings;
+import me.kopamed.settings.Setting;
 import me.kopamed.settings.SettingsManager;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
 import org.lwjgl.input.Keyboard;
@@ -21,6 +24,9 @@ public class Galacticc
     public ModuleManager moduleManager;
     public SettingsManager settingsManager;
     public ClickGui clickGui;
+    public SaveLoad saveLoad;
+
+    public boolean destructed = false;
 
     public void init()
     {
@@ -31,6 +37,7 @@ public class Galacticc
         moduleManager = new ModuleManager();
         moduleManager.addModule(new SafeSettings());
         clickGui = new ClickGui();
+        saveLoad = new SaveLoad();
     }
 
     @SubscribeEvent
@@ -59,5 +66,20 @@ public class Galacticc
         } catch (Exception q) {
             q.printStackTrace();
         }
+    }
+
+    public void onDestruct() {
+        if (Minecraft.getMinecraft().currentScreen != null && Minecraft.getMinecraft().thePlayer != null) {
+            Minecraft.getMinecraft().thePlayer.closeScreen();
+        }
+        destructed = true;
+        MinecraftForge.EVENT_BUS.unregister(this);
+        for (int k = 0; k < this.moduleManager.modules.size(); k++) {
+            Module m = this.moduleManager.modules.get(k);
+            MinecraftForge.EVENT_BUS.unregister(m);
+            this.moduleManager.getModulesList().remove(m);
+        }
+        this.moduleManager = null;
+        this.clickGui = null;
     }
 }

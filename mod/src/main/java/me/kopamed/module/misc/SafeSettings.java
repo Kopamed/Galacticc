@@ -32,6 +32,7 @@ public class SafeSettings extends Module {
 
     @SubscribeEvent
     public void onTick(TickEvent.PlayerTickEvent e) {
+        if (Galacticc.instance.destructed) {return;}
         for (Module m : Galacticc.instance.moduleManager.getModulesList()) {
             if (m.isDetectable() && m.isToggled()) {
                 if (Galacticc.instance.settingsManager.getSettingByName(this, "Mode").getValString().equalsIgnoreCase("tick = disallow")){

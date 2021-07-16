@@ -1,6 +1,7 @@
 //Noi bypass lol sry vbabay ur going back to mumbay
 package me.kopamed.module.movement;
 
+import me.kopamed.Galacticc;
 import me.kopamed.module.Category;
 import me.kopamed.module.Module;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -17,24 +18,29 @@ public class Fly extends Module {
     @Override
     public void onEnabled() {
         super.onEnabled();
-        if (!mc.thePlayer.capabilities.isFlying) {
-            mc.thePlayer.jump();
-            mc.thePlayer.capabilities.allowFlying = true;
-            mc.thePlayer.capabilities.isFlying = true;
+        if (mc.thePlayer != null) {
+            if (!mc.thePlayer.capabilities.isFlying) {
+                mc.thePlayer.jump();
+                mc.thePlayer.capabilities.allowFlying = true;
+                mc.thePlayer.capabilities.isFlying = true;
+            }
         }
     }
 
     @Override
     public void onDisabled() {
         super.onDisabled();
-        if (mc.thePlayer.capabilities.allowFlying) {
-            mc.thePlayer.capabilities.allowFlying = false;
-            mc.thePlayer.capabilities.isFlying = false;
+        if (mc.thePlayer != null) {
+            if (mc.thePlayer.capabilities.allowFlying) {
+                mc.thePlayer.capabilities.allowFlying = false;
+                mc.thePlayer.capabilities.isFlying = false;
+            }
         }
     }
 
     @SubscribeEvent
     public void PlayerTickEvent(TickEvent.PlayerTickEvent e) {
+        if (Galacticc.instance.destructed) {return;}
         Set<Double> hash_Set = new HashSet<Double>();
         if (e.player.height == 0) {
             this.toggle();
