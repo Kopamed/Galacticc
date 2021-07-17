@@ -7,7 +7,7 @@
 Discord:<br>
 <a href="https://discord.gg/N4zn4FwPcz"><img src="https://invidget.switchblade.xyz/N4zn4FwPcz" alt="https://discord.gg/N4zn4FwPcz"/></a>
 
-#Installation
+# Installation
 
 ## User
 1. Get and install (by running the file you downloaded) [forge](https://files.minecraftforge.net/net/minecraftforge/forge/index_1.8.9.html 'forge'). 
