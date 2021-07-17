@@ -12,6 +12,9 @@ import me.kopamed.module.Category;
 import me.kopamed.module.Module;
 import me.kopamed.settings.Setting;
 import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.item.ItemBow;
+import net.minecraft.item.ItemFood;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import org.lwjgl.Sys;
@@ -25,7 +28,7 @@ public class AutoClicker extends Module {
     private double speedLeft, speedRight;
     private double leftHoldLength, rightHoldLength;
     private float leftMinCPS, leftMaxCPS, rightMinCPS, rightMaxCPS;
-    private boolean leftActive, rightActive;
+    private boolean leftActive, rightActive, canEat, canBow;
 
     public AutoClicker() {
         //Setting module attributes
@@ -41,6 +44,9 @@ public class AutoClicker extends Module {
         Setting rightMinCPS = new Setting("Right MinCPS", this, 12, 5, 60, false);
         Setting rightMaxCPS = new Setting("Right MaxCPS", this, 16, 5, 60, false);
 
+        Setting canEat = new Setting("Can eat", this, true);
+        Setting canBow = new Setting("Can bow", this, true);
+
         //Adding left click settings to gui
         Galacticc.instance.settingsManager.rSetting(leftActive);
         Galacticc.instance.settingsManager.rSetting(leftMinCPS);
@@ -50,6 +56,9 @@ public class AutoClicker extends Module {
         Galacticc.instance.settingsManager.rSetting(rightActive);
         Galacticc.instance.settingsManager.rSetting(rightMinCPS);
         Galacticc.instance.settingsManager.rSetting(rightMaxCPS);
+
+        Galacticc.instance.settingsManager.rSetting(canEat);
+        Galacticc.instance.settingsManager.rSetting(canBow);
     }
 
     @SubscribeEvent
@@ -78,6 +87,21 @@ public class AutoClicker extends Module {
         }
         //we cheat in a block game ft. right click
         if (Mouse.isButtonDown(1) && rightActive) {
+            if (canEat) {
+                ItemStack item = mc.thePlayer.getHeldItem();
+                if ((item.getItem() != null && item.getItem() instanceof ItemFood)) {
+                    System.out.println("is eating");
+                    return;
+                }
+            }
+            if (canBow) {
+                ItemStack item = mc.thePlayer.getHeldItem();
+                if (item.getItem() instanceof ItemBow) {
+                    System.out.println("is bowing");
+                    return;
+                }
+            }
+            System.out.println("Gonna clcik");
             if (System.currentTimeMillis() - lastClick > speedRight * 1000) {
                 lastClick = System.currentTimeMillis();
                 if (hold < lastClick){
@@ -108,6 +132,9 @@ public class AutoClicker extends Module {
 
         rightMinCPS = (float)Galacticc.instance.settingsManager.getSettingByName(this, "Right MinCPS").getValDouble();
         rightMaxCPS = (float)Galacticc.instance.settingsManager.getSettingByName(this, "Right MaxCPS").getValDouble();
+
+        canEat = Galacticc.instance.settingsManager.getSettingByName(this, "Can eat").getValBoolean();
+        canBow = Galacticc.instance.settingsManager.getSettingByName(this, "Can bow").getValBoolean();
 
         if (leftMinCPS >= leftMaxCPS) {
             Galacticc.instance.settingsManager.getSettingByName(this, "Left MaxCPS").setValDouble((float)leftMinCPS + 0.01F);
