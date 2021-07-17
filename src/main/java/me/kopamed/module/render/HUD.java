@@ -22,7 +22,7 @@ import java.util.Comparator;
 public class HUD extends Module {
     private boolean watermark, background, textShadow;
     private int margin;
-    private int waterMarkMargin, topOffSet, rightOffSet;
+    private int waterMarkMargin, topOffSet, rightOffSet, miniboxWidth;
     private int modColor = 0xFFFFFF;
     private int wmColor = 0xFF4500;
     private String sortMode;
@@ -69,12 +69,15 @@ public class HUD extends Module {
         waterMarkMargin = 3;
         topOffSet = 4;
         rightOffSet = 4;
+        miniboxWidth = 1;
+
 
         if(watermark) {
             String waterMarkText = Galacticc.MODID + Galacticc.VERSION.toUpperCase();
             FontRenderer fr = Minecraft.getMinecraft().fontRendererObj;
             if(background) {
                 Gui.drawRect(sr.getScaledWidth() - fr.getStringWidth(waterMarkText) - waterMarkMargin*2 - rightOffSet, topOffSet,sr.getScaledWidth() - rightOffSet, topOffSet + waterMarkMargin * 2 + fr.FONT_HEIGHT, 0x90000000);
+                Gui.drawRect(sr.getScaledWidth() - fr.getStringWidth(waterMarkText) - margin * 2 - rightOffSet - miniboxWidth, topOffSet,sr.getScaledWidth() - fr.getStringWidth(waterMarkText) - margin * 2 - rightOffSet, topOffSet + margin * 2 + fr.FONT_HEIGHT, 0xffff4500);
             }
             if (textShadow) {
                 fr.drawStringWithShadow(waterMarkText, sr.getScaledWidth() - fr.getStringWidth(waterMarkText) - rightOffSet - waterMarkMargin, topOffSet  + waterMarkMargin, wmColor);
@@ -102,6 +105,7 @@ public class HUD extends Module {
                 FontRenderer fr = Minecraft.getMinecraft().fontRendererObj;
                 if(background) {
                     Gui.drawRect(sr.getScaledWidth() - fr.getStringWidth(mod.getName()) - margin * 2 - rightOffSet, topOffSet,sr.getScaledWidth() - rightOffSet, topOffSet + margin * 2 + fr.FONT_HEIGHT, 0x90000000);
+                    Gui.drawRect(sr.getScaledWidth() - fr.getStringWidth(mod.getName()) - margin * 2 - rightOffSet - miniboxWidth, topOffSet,sr.getScaledWidth() - fr.getStringWidth(mod.getName()) - margin * 2 - rightOffSet, topOffSet + margin * 2 + fr.FONT_HEIGHT, 0xffff4500);
                 }
                 if (textShadow) {
                     fr.drawStringWithShadow(mod.getName(), sr.getScaledWidth() - fr.getStringWidth(mod.getName()) - rightOffSet - margin, topOffSet  + margin, modColor);

@@ -25,6 +25,5 @@ public class NoFall extends Module {
     public void PlayerTickEvent(TickEvent.PlayerTickEvent e) {
         if (Galacticc.instance.destructed) {return;}
             e.player.onGround = true;
-            shjhdhj.println("xfce said " + mc.theWorld.getBlockState(mc.thePlayer.getPosition() ).getBlock());
     }
 }
