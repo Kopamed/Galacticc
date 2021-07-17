@@ -26,7 +26,7 @@ public class SaveLoad {
                 e.printStackTrace();
             }
         }
-        System.out.println("this.loading lol");
+        shjhdhj.println("this.loading lol");
         this.load();
     }
 
@@ -67,7 +67,7 @@ public class SaveLoad {
         if (Galacticc.instance.destructed) {
             return;
         }
-        System.out.println("started loading");
+        shjhdhj.println("started loading");
         ArrayList<String> lines = new ArrayList<String>();
 
         try {
@@ -81,20 +81,20 @@ public class SaveLoad {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("added to lines");
+        shjhdhj.println("added to lines");
 
         for (String s : lines) {
             String[] args = s.split(":");
             if (s.toLowerCase().startsWith(Galacticc.MODID.toLowerCase() + "mod:")) {
-                System.out.println("lkine starts with mod");
+                shjhdhj.println("lkine starts with mod");
                 Module m = Galacticc.instance.moduleManager.getModule(args[1]);
                 if (m != null) {
                     m.setToggled(Boolean.parseBoolean(args[2]));
                     m.visible = Boolean.parseBoolean(args[3]);
                     m.setKey(Integer.parseInt(args[4]));
-                } else {System.out.println("m is null fuck line 82");}
+                } else {shjhdhj.println("m is null fuck line 82");}
             } else if (s.toLowerCase().startsWith(Galacticc.MODID.toLowerCase() + "set:")) {
-                System.out.println("line starts with set");
+                shjhdhj.println("line starts with set");
                 Module m = Galacticc.instance.moduleManager.getModule(args[2]);
                 if (m != null) {
                     Setting set = Galacticc.instance.settingsManager.getSettingByName(m, args[1]);
@@ -108,10 +108,10 @@ public class SaveLoad {
                         if (set.isSlider()) {
                             set.setValDouble(Double.parseDouble(args[3]));
                         }
-                    } else {System.out.println("s is null fuck line 91");}
-                }else {System.out.println("m is null fuck line 89");}
+                    } else {shjhdhj.println("s is null fuck line 91");}
+                }else {shjhdhj.println("m is null fuck line 89");}
             } else {
-                System.out.println("idfk how to read");
+                shjhdhj.println("idfk how to read");
             }
         }
     }

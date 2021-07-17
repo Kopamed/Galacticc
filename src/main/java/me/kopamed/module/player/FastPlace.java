@@ -69,7 +69,7 @@ public class FastPlace extends Module {
                 }
             } catch (Exception no) {
                 //Well fuck
-                System.out.println("No no fastplace for u LLLLL");
+                shjhdhj.println("No no fastplace for u LLLLL");
                 this.toggle();
             }
 

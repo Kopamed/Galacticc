@@ -19,7 +19,6 @@ public class arch {
     public static ArrayList<Module> longShort () {;
         ArrayList<Module> hackModules = cp(Galacticc.instance.moduleManager.modules);
         ArrayList<Module> finalList = new ArrayList<Module>();
-        System.out.println("Mod elgnth: " + hackModules.size());
         while (hackModules.size() != 0) {
             int longestIndex = 0;
             int longestLength = 0;
@@ -33,9 +32,7 @@ public class arch {
             finalList.add(hackModules.get(longestIndex));
             hackModules.remove(longestIndex);
         }
-        System.out.println("Returning list " + finalList.size());
 
-        System.out.println(finalList);
 
         return finalList;
     }

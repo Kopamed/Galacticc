@@ -20,7 +20,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class HUD extends Module {
-    private boolean watermark, background;
+    private boolean watermark, background, textShadow;
     private int margin;
     private int waterMarkMargin, topOffSet, rightOffSet;
     private int modColor = 0xFFFFFF;
@@ -38,12 +38,14 @@ public class HUD extends Module {
         sort.add("idfc");
 
         Setting waterMark = new Setting("Watermark", this, true);
-        Setting background = new Setting("Background", this, true);
+        Setting background = new Setting("Background", this, false);
+        Setting textShadow = new Setting("Text Shadow", this, true);
         Setting arrayListSort = new Setting("Arraylist sort", this, "Length long > short", sort);
 
         Galacticc.instance.settingsManager.rSetting(arrayListSort);
         Galacticc.instance.settingsManager.rSetting(waterMark);
         Galacticc.instance.settingsManager.rSetting(background);
+        Galacticc.instance.settingsManager.rSetting(textShadow);
     }
 
     @SubscribeEvent
@@ -58,6 +60,7 @@ public class HUD extends Module {
         sortMode = Galacticc.instance.settingsManager.getSettingByName(this, "Arraylist sort").getValString();
         watermark = Galacticc.instance.settingsManager.getSettingByName(this, "Watermark").getValBoolean();
         background = Galacticc.instance.settingsManager.getSettingByName(this, "Background").getValBoolean();
+        textShadow = Galacticc.instance.settingsManager.getSettingByName(this, "Text Shadow").getValBoolean();
         // Renders active modules
         ScaledResolution sr = new ScaledResolution(Minecraft.getMinecraft());
 
@@ -73,14 +76,17 @@ public class HUD extends Module {
             if(background) {
                 Gui.drawRect(sr.getScaledWidth() - fr.getStringWidth(waterMarkText) - waterMarkMargin*2 - rightOffSet, topOffSet,sr.getScaledWidth() - rightOffSet, topOffSet + waterMarkMargin * 2 + fr.FONT_HEIGHT, 0x90000000);
             }
-            fr.drawString(waterMarkText, sr.getScaledWidth() - fr.getStringWidth(waterMarkText) - rightOffSet - waterMarkMargin, topOffSet  + waterMarkMargin, wmColor);
+            if (textShadow) {
+                fr.drawStringWithShadow(waterMarkText, sr.getScaledWidth() - fr.getStringWidth(waterMarkText) - rightOffSet - waterMarkMargin, topOffSet  + waterMarkMargin, wmColor);
+            } else {
+                fr.drawString(waterMarkText, sr.getScaledWidth() - fr.getStringWidth(waterMarkText) - rightOffSet - waterMarkMargin, topOffSet  + waterMarkMargin, wmColor);
+            }
+
             topOffSet += fr.FONT_HEIGHT + waterMarkMargin*2;
         }
 
 
         modList = Galacticc.instance.moduleManager.getModulesList();
-        System.out.println("Og modlist length " + modList.size());
-        System.out.println("Fuck " + Galacticc.instance.moduleManager.getModulesList());
 
         if (sortMode.equalsIgnoreCase("Length long > short")) {
             modList = arch.longShort();
@@ -94,12 +100,15 @@ public class HUD extends Module {
         for (Module mod : modList) {
             if (mod.visible && mod.isToggled()) {
                 FontRenderer fr = Minecraft.getMinecraft().fontRendererObj;
-
                 if(background) {
                     Gui.drawRect(sr.getScaledWidth() - fr.getStringWidth(mod.getName()) - margin * 2 - rightOffSet, topOffSet,sr.getScaledWidth() - rightOffSet, topOffSet + margin * 2 + fr.FONT_HEIGHT, 0x90000000);
                 }
+                if (textShadow) {
+                    fr.drawStringWithShadow(mod.getName(), sr.getScaledWidth() - fr.getStringWidth(mod.getName()) - rightOffSet - margin, topOffSet  + margin, modColor);
+                } else {
+                    fr.drawString(mod.getName(), sr.getScaledWidth() - fr.getStringWidth(mod.getName()) - rightOffSet - margin, topOffSet  + margin, modColor);
+                }
 
-                fr.drawString(mod.getName(), sr.getScaledWidth() - fr.getStringWidth(mod.getName()) - rightOffSet - margin, topOffSet  + margin, modColor);
                 topOffSet += fr.FONT_HEIGHT + margin*2;
             }
         }
