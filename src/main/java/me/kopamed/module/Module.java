@@ -92,4 +92,9 @@ public class Module {
     public void onDisabled(){
         MinecraftForge.EVENT_BUS.unregister(this);
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

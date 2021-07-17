@@ -1,5 +1,6 @@
 package me.kopamed.module;
 
+import me.kopamed.Galacticc;
 import me.kopamed.module.combat.AntiBot;
 import me.kopamed.module.combat.AutoClicker;
 import me.kopamed.module.combat.Velocity;
