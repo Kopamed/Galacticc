@@ -11,6 +11,7 @@ import me.kopamed.Galacticc;
 import me.kopamed.module.Category;
 import me.kopamed.module.Module;
 import me.kopamed.settings.Setting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemFood;
@@ -64,6 +65,9 @@ public class AutoClicker extends Module {
     @SubscribeEvent
     public void onTick(TickEvent.RenderTickEvent e) {
         if (Galacticc.instance.destructed) {return;}
+        if (Minecraft.getMinecraft() == null || mc.thePlayer == null || mc.theWorld == null) {
+            return;
+        }
         this.updateVals();
         //If none of the buttons are allowed to click, what is the point in generating clicktimes anyway?
         if (!leftActive && !rightActive) {
@@ -87,18 +91,19 @@ public class AutoClicker extends Module {
         }
         //we cheat in a block game ft. right click
         if (Mouse.isButtonDown(1) && rightActive) {
-            if (canEat) {
-                ItemStack item = mc.thePlayer.getHeldItem();
-                if ((item.getItem() != null && item.getItem() instanceof ItemFood)) {
-                    System.out.println("is eating");
-                    return;
+            ItemStack item = mc.thePlayer.getHeldItem();
+            if (item != null) {
+                if (canEat) {
+                    if ((item.getItem() instanceof ItemFood)) {
+                        System.out.println("is eating");
+                        return;
+                    }
                 }
-            }
-            if (canBow) {
-                ItemStack item = mc.thePlayer.getHeldItem();
-                if (item.getItem() instanceof ItemBow) {
-                    System.out.println("is bowing");
-                    return;
+                if (canBow) {
+                    if (item.getItem() instanceof ItemBow) {
+                        System.out.println("is bowing");
+                        return;
+                    }
                 }
             }
             System.out.println("Gonna clcik");

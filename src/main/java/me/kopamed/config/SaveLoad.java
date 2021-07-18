@@ -1,6 +1,5 @@
-package me.kopamed.autosave;
+package me.kopamed.config;
 
-import com.ibm.icu.text.ArabicShaping;
 import me.kopamed.Galacticc;
 import me.kopamed.module.Module;
 import me.kopamed.settings.Setting;

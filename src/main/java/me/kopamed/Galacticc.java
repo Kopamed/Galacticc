@@ -1,16 +1,14 @@
 package me.kopamed;
 
 
-import me.kopamed.autosave.SaveLoad;
+import me.kopamed.config.SaveLoad;
 import me.kopamed.clickgui.ClickGui;
 import me.kopamed.module.Module;
 import me.kopamed.module.ModuleManager;
 import me.kopamed.module.misc.SafeSettings;
-import me.kopamed.settings.Setting;
 import me.kopamed.settings.SettingsManager;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
 import org.lwjgl.input.Keyboard;
