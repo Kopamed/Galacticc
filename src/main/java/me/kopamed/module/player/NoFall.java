@@ -7,6 +7,7 @@ import me.kopamed.module.Category;
 import me.kopamed.module.Module;
 import me.kopamed.settings.Setting;
 import net.minecraft.client.gui.GuiShareToLan;
+import net.minecraft.network.play.client.C03PacketPlayer;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
@@ -22,8 +23,13 @@ public class NoFall extends Module {
     }
 
     @SubscribeEvent
-    public void PlayerTickEvent(TickEvent.PlayerTickEvent e) {
+    public void TickEvent(TickEvent.PlayerTickEvent e) {
         if (Galacticc.instance.destructed) {return;}
-            e.player.onGround = true;
+
+        if (e.phase == TickEvent.Phase.START) {
+            if (mc.thePlayer.fallDistance > 3) {
+                mc.thePlayer.sendQueue.addToSendQueue(new C03PacketPlayer(true));
+            }
+        }
     }
 }

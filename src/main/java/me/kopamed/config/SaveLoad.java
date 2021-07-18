@@ -11,13 +11,16 @@ import java.util.ArrayList;
 public class SaveLoad {
     private File dir;
     private File dataFile;
+    private String extension, fileName;
 
     public SaveLoad() {
         dir = new File(Minecraft.getMinecraft().mcDataDir, Galacticc.MODID.toLowerCase());
         if (!dir.exists()) {
             dir.mkdir();
         }
-        dataFile = new File(dir, "data.txt");
+        this.fileName = "current";
+        this.extension = ".galaxy";
+        dataFile = new File(dir, fileName + extension);
         if (!dataFile.exists()) {
             try {
                 dataFile.createNewFile();
@@ -112,5 +115,37 @@ public class SaveLoad {
                 System.out.println("idfk how to read");
             }
         }
+    }
+
+    public String getExtension() {
+        return extension;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+        this.dataFile = new File(dir, this.fileName + this.extension);
+        if (!this.dataFile.exists()) {
+            try {
+                this.dataFile.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static ArrayList<String> getConfigs() {
+        File[] files = new File("Async/Configs/").listFiles();
+        ArrayList<String> results = new ArrayList<String>();
+
+        for (File file : files) {
+            if (file.isFile()) {
+                results.add(file.getName());
+            }
+        }
+        return results;
     }
 }

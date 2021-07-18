@@ -95,18 +95,15 @@ public class AutoClicker extends Module {
             if (item != null) {
                 if (canEat) {
                     if ((item.getItem() instanceof ItemFood)) {
-                        System.out.println("is eating");
                         return;
                     }
                 }
                 if (canBow) {
                     if (item.getItem() instanceof ItemBow) {
-                        System.out.println("is bowing");
                         return;
                     }
                 }
             }
-            System.out.println("Gonna clcik");
             if (System.currentTimeMillis() - lastClick > speedRight * 1000) {
                 lastClick = System.currentTimeMillis();
                 if (hold < lastClick){
