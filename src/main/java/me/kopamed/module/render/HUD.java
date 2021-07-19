@@ -9,6 +9,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.entity.Render;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.lwjgl.Sys;
@@ -53,7 +54,7 @@ public class HUD extends Module {
         if (Galacticc.instance.destructed){
             return;
         }
-        if (!egoe.type.equals(egoe.type.ALL)) {
+        if (!egoe.type.equals(egoe.type.CROSSHAIRS)) {
             return;
         }
 
@@ -70,7 +71,6 @@ public class HUD extends Module {
         topOffSet = 4;
         rightOffSet = 4;
         miniboxWidth = 1;
-
 
         if(watermark) {
             String waterMarkText = Galacticc.MODID + Galacticc.VERSION.toUpperCase();
@@ -99,7 +99,6 @@ public class HUD extends Module {
             modList = arch.abcList();
         }
 
-
         for (Module mod : modList) {
             if (mod.visible && mod.isToggled()) {
                 FontRenderer fr = Minecraft.getMinecraft().fontRendererObj;
@@ -117,4 +116,6 @@ public class HUD extends Module {
             }
         }
     }
+
+
 }

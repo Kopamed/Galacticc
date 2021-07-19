@@ -34,8 +34,8 @@ public class Galacticc
         settingsManager = new SettingsManager();
         moduleManager = new ModuleManager();
         moduleManager.addModule(new SafeSettings());
-        clickGui = new ClickGui();
         saveLoad = new SaveLoad();
+        clickGui = new ClickGui();
     }
 
     @SubscribeEvent

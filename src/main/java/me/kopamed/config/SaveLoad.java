@@ -18,9 +18,9 @@ public class SaveLoad {
         if (!dir.exists()) {
             dir.mkdir();
         }
-        this.fileName = "current";
-        this.extension = ".galaxy";
-        dataFile = new File(dir, fileName + extension);
+        this.fileName = "fuckme5";
+        this.extension = "galaxy";
+        dataFile = new File(dir, fileName + "." + extension);
         if (!dataFile.exists()) {
             try {
                 dataFile.createNewFile();
@@ -28,7 +28,6 @@ public class SaveLoad {
                 e.printStackTrace();
             }
         }
-
         this.load();
     }
 
@@ -83,7 +82,9 @@ public class SaveLoad {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        if (lines.size() == 0) {
+            return;
+        }
 
         for (String s : lines) {
             String[] args = s.split(":");
@@ -138,7 +139,7 @@ public class SaveLoad {
     }
 
     public static ArrayList<String> getConfigs() {
-        File[] files = new File("Async/Configs/").listFiles();
+        File[] files = new File(Galacticc.MODID.toLowerCase() + "/Configs/").listFiles();
         ArrayList<String> results = new ArrayList<String>();
 
         for (File file : files) {
@@ -148,4 +149,35 @@ public class SaveLoad {
         }
         return results;
     }
+
+    /*
+    public void saveDefault() {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/resources/assets/configs/default.galaxy")));
+        ArrayList<String> lines = new ArrayList<String>();
+        // gettting the default cfg
+        String line = null;
+        try {
+            line = reader.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        while (line != null) {
+            lines.add(line);
+            try {
+                line = reader.readLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        try {
+            PrintWriter printWriter = new PrintWriter(this.dataFile);
+            for (String str : lines) {
+                printWriter.println(str);
+            }
+            printWriter.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }*/
 }

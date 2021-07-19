@@ -86,10 +86,12 @@ public class Module {
     }
 
     public void onEnabled(){
+        System.out.println("Enabled " + this.name);
         MinecraftForge.EVENT_BUS.register(this);
     }
 
     public void onDisabled(){
+        System.out.println("Disabled" + this.name);
         MinecraftForge.EVENT_BUS.unregister(this);
     }
 
