@@ -47,7 +47,8 @@ Right now, most of it's modules do not bypass NCP/WatchDog. The ones which do ar
   - SelfDestruct
  
  ## Screenshots
- <img src="https://imgur.com/a/32SoGrE" alt="Screenshots of Galacticc">
+ <img src="https://imgur.com/lEknjCL.png" alt="Screenshot of Galacticc's HUD">
+ <img src="https://imgur.com/EbT8UjC.png" alt="Screenshot of Galacticc's ClickGUI">
  
  ## Trust
  This client is safe, and you can confirm this by going through the source code.<br>
