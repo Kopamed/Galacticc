@@ -1,7 +1,7 @@
 package me.kopamed;
 
 
-import me.kopamed.commands.ConfigCommand;
+import me.kopamed.command.CommandManager;
 import me.kopamed.config.SaveLoad;
 import me.kopamed.clickgui.ClickGui;
 import me.kopamed.module.Module;
@@ -19,12 +19,14 @@ public class Galacticc
 {
     public static final String MODID = "Galacticc";
     public static final String VERSION = "r1";
+    public static String prefix = ".";
 
     public static Galacticc instance;
     public ModuleManager moduleManager;
     public SettingsManager settingsManager;
     public ClickGui clickGui;
     public SaveLoad saveLoad;
+    public CommandManager commandManager;
 
     public boolean destructed = false;
 
@@ -38,7 +40,7 @@ public class Galacticc
         moduleManager.addModule(new SafeSettings());
         saveLoad = new SaveLoad();
         clickGui = new ClickGui();
-        ClientCommandHandler.instance.registerCommand(new ConfigCommand());
+        commandManager = new CommandManager();
     }
 
     @SubscribeEvent

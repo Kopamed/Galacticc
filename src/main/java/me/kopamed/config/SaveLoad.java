@@ -18,7 +18,7 @@ public class SaveLoad {
         if (!dir.exists()) {
             dir.mkdir();
         }
-        this.fileName = "fuckme5";
+        this.fileName = "current";
         this.extension = "galaxy";
         dataFile = new File(dir, fileName + "." + extension);
         if (!dataFile.exists()) {
@@ -32,6 +32,39 @@ public class SaveLoad {
     }
 
     public void save() {
+        if (Galacticc.instance.destructed) {
+            return;
+        }
+        ArrayList<String> toSave = new ArrayList<String>();
+
+        for (Module mod : Galacticc.instance.moduleManager.getModulesList()) {
+            toSave.add(Galacticc.MODID + "MOD:" + mod.getName() + ":" + mod.isToggled() + ":" + mod.visible + ":" + mod.getKey());
+        }
+
+        for (Setting set : Galacticc.instance.settingsManager.getSettings()) {
+            if (set.isCheck()) {
+                toSave.add(Galacticc.MODID + "SET:" + set.getName() + ":" + set.getParentMod().getName() + ":" + set.getValBoolean());
+            }
+            if (set.isCombo()) {
+                toSave.add(Galacticc.MODID + "SET:" + set.getName() + ":" + set.getParentMod().getName() + ":" + set.getValString());
+            }
+            if (set.isSlider()) {
+                toSave.add(Galacticc.MODID + "SET:" + set.getName() + ":" + set.getParentMod().getName() + ":" + set.getValDouble());
+            }
+        }
+
+        try {
+            PrintWriter printWriter = new PrintWriter(this.dataFile);
+            for (String str : toSave) {
+                printWriter.println(str);
+            }
+            printWriter.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void save(String configname) {
         if (Galacticc.instance.destructed) {
             return;
         }
