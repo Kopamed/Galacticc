@@ -11,11 +11,15 @@ import me.kopamed.Galacticc;
 import me.kopamed.module.Category;
 import me.kopamed.module.Module;
 import me.kopamed.settings.Setting;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockLiquid;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockPos;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import org.lwjgl.Sys;
@@ -29,7 +33,7 @@ public class AutoClicker extends Module {
     private double speedLeft, speedRight;
     private double leftHoldLength, rightHoldLength;
     private float leftMinCPS, leftMaxCPS, rightMinCPS, rightMaxCPS;
-    private boolean leftActive, rightActive, canEat, canBow;
+    private boolean leftActive, rightActive, canEat, canBow, breakBlocks, ravenBreakWtf;
 
     public AutoClicker() {
         //Setting module attributes
@@ -45,6 +49,7 @@ public class AutoClicker extends Module {
         Setting rightMinCPS = new Setting("Right MinCPS", this, 12, 5, 60, false);
         Setting rightMaxCPS = new Setting("Right MaxCPS", this, 16, 5, 60, false);
 
+        Setting breakBlocks = new Setting("Break blocks", this, true);
         Setting canEat = new Setting("Can eat", this, true);
         Setting canBow = new Setting("Can bow", this, true);
 
@@ -60,6 +65,9 @@ public class AutoClicker extends Module {
 
         Galacticc.instance.settingsManager.rSetting(canEat);
         Galacticc.instance.settingsManager.rSetting(canBow);
+        Galacticc.instance.settingsManager.rSetting(breakBlocks);
+
+        this.ravenBreakWtf = false;
     }
 
     @SubscribeEvent
@@ -77,6 +85,27 @@ public class AutoClicker extends Module {
 
         // Uhh left click only, mate
         if (Mouse.isButtonDown(0) && leftActive) {
+            if(breakBlocks) {
+                BlockPos lookingBlock = mc.objectMouseOver.getBlockPos();
+                if (lookingBlock != null) {
+                    Block stateBlock = mc.theWorld.getBlockState(lookingBlock).getBlock();
+                    if (stateBlock != Blocks.air && !(stateBlock instanceof BlockLiquid)) {
+                        int key = mc.gameSettings.keyBindAttack.getKeyCode();
+                        KeyBinding.setKeyBindState(key, true);
+                        KeyBinding.onTick(key);
+                        this.ravenBreakWtf = true;
+                        return;
+                    }
+
+                    if (this.ravenBreakWtf) {
+                        int key = mc.gameSettings.keyBindAttack.getKeyCode();
+                        KeyBinding.setKeyBindState(key, false);
+                        this.ravenBreakWtf = false;
+                    }
+                }
+            }
+
+
             if (System.currentTimeMillis() - lastClick > speedLeft * 1000) {
                 lastClick = System.currentTimeMillis();
                 if (hold < lastClick){
@@ -104,6 +133,9 @@ public class AutoClicker extends Module {
                     }
                 }
             }
+
+
+
             if (System.currentTimeMillis() - lastClick > speedRight * 1000) {
                 lastClick = System.currentTimeMillis();
                 if (hold < lastClick){
@@ -124,6 +156,12 @@ public class AutoClicker extends Module {
         this.updateVals();
     }
 
+    @Override
+    public void onDisabled() {
+        this.ravenBreakWtf = false;
+        super.onDisabled();
+    }
+
     private void updateVals(){
         //Getting setting values
         leftActive = Galacticc.instance.settingsManager.getSettingByName(this, "Left Click").getValBoolean();
@@ -137,6 +175,7 @@ public class AutoClicker extends Module {
 
         canEat = Galacticc.instance.settingsManager.getSettingByName(this, "Can eat").getValBoolean();
         canBow = Galacticc.instance.settingsManager.getSettingByName(this, "Can bow").getValBoolean();
+        breakBlocks = Galacticc.instance.settingsManager.getSettingByName(this, "Break blocks").getValBoolean();
 
         if (leftMinCPS >= leftMaxCPS) {
             Galacticc.instance.settingsManager.getSettingByName(this, "Left MaxCPS").setValDouble((float)leftMinCPS + 0.01F);

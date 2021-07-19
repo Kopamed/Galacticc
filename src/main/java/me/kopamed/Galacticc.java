@@ -1,6 +1,7 @@
 package me.kopamed;
 
 
+import me.kopamed.commands.ConfigCommand;
 import me.kopamed.config.SaveLoad;
 import me.kopamed.clickgui.ClickGui;
 import me.kopamed.module.Module;
@@ -8,6 +9,7 @@ import me.kopamed.module.ModuleManager;
 import me.kopamed.module.misc.SafeSettings;
 import me.kopamed.settings.SettingsManager;
 import net.minecraft.client.Minecraft;
+import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
@@ -36,6 +38,7 @@ public class Galacticc
         moduleManager.addModule(new SafeSettings());
         saveLoad = new SaveLoad();
         clickGui = new ClickGui();
+        ClientCommandHandler.instance.registerCommand(new ConfigCommand());
     }
 
     @SubscribeEvent
