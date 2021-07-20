@@ -1,10 +1,7 @@
 package me.kopamed.galacticc.module;
 
 import me.kopamed.galacticc.Galacticc;
-import me.kopamed.galacticc.module.combat.AntiBot;
-import me.kopamed.galacticc.module.combat.AutoClicker;
-import me.kopamed.galacticc.module.combat.DelayRemover;
-import me.kopamed.galacticc.module.combat.Velocity;
+import me.kopamed.galacticc.module.combat.*;
 import me.kopamed.galacticc.module.misc.SafeSettings;
 import me.kopamed.galacticc.module.misc.SelfDestruct;
 import me.kopamed.galacticc.module.movement.Fly;
@@ -36,6 +33,7 @@ public class ModuleManager {
         this.modules.add(new FastPlace());
         this.modules.add(new SelfDestruct());
         this.modules.add(new DelayRemover());
+        this.modules.add(new Reach());
     }
 
     public Module getModule(String name) {

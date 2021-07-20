@@ -167,6 +167,10 @@ public class AutoClicker extends Module {
         leftActive = Galacticc.instance.settingsManager.getSettingByName(this, "Left Click").getValBoolean();
         rightActive = Galacticc.instance.settingsManager.getSettingByName(this, "Right Click").getValBoolean();
 
+        if (!rightActive && !leftActive) {
+            this.toggle();
+        }
+
         leftMinCPS = (float) Galacticc.instance.settingsManager.getSettingByName(this, "Left MinCPS").getValDouble();
         leftMaxCPS = (float)Galacticc.instance.settingsManager.getSettingByName(this, "Left MaxCPS").getValDouble();
 
