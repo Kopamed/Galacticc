@@ -1,4 +1,4 @@
-import me.kopamed.Galacticc;
+import me.kopamed.galacticc.Galacticc;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 
