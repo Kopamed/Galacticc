@@ -12,6 +12,7 @@ import me.kopamed.galacticc.module.player.NoFall;
 import me.kopamed.galacticc.module.render.ClickGUI;
 import me.kopamed.galacticc.module.render.Fullbright;
 import me.kopamed.galacticc.module.render.HUD;
+import me.kopamed.galacticc.module.render.PlayerESP;
 
 import java.util.ArrayList;
 
@@ -34,6 +35,8 @@ public class ModuleManager {
         this.modules.add(new SelfDestruct());
         this.modules.add(new DelayRemover());
         //this.modules.add(new Reach());
+        //this.modules.add(new PlayerESP());
+        this.modules.add(new Killaura());
     }
 
     public Module getModule(String name) {

@@ -9,10 +9,14 @@ import me.kopamed.galacticc.module.ModuleManager;
 import me.kopamed.galacticc.module.misc.SafeSettings;
 import me.kopamed.galacticc.settings.SettingsManager;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
 import org.lwjgl.input.Keyboard;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Galacticc
 {
@@ -26,6 +30,7 @@ public class Galacticc
     public ClickGui clickGui;
     public SaveLoad saveLoad;
     public CommandManager commandManager;
+    public ArrayList<EntityPlayer> bots = new ArrayList<EntityPlayer>();
 
     public boolean destructed = false;
 
@@ -83,5 +88,16 @@ public class Galacticc
         }
         this.moduleManager = null;
         this.clickGui = null;
+    }
+
+    public ArrayList<EntityPlayer> getBots() {
+        return this.bots;
+    }
+
+    public void updateBots(List<EntityPlayer> e) {
+        this.bots = new ArrayList<EntityPlayer>();
+        for (EntityPlayer entityPlayer : e) {
+            this.bots.add(entityPlayer);
+        }
     }
 }

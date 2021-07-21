@@ -36,6 +36,8 @@ public class AntiBot extends Module {
                 bots.remove(ent);
             }
         }
+
+        Galacticc.instance.updateBots(bots);
     }
 
     private List<EntityPlayer> getTabPlayerList() {
