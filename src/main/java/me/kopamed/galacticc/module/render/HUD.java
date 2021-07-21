@@ -12,6 +12,7 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
 import org.lwjgl.Sys;
 
 import java.awt.*;
@@ -21,7 +22,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class HUD extends Module {
-    private boolean watermark, background, textShadow;
+    private boolean watermark, background, textShadow, active;
     private int margin;
     private int waterMarkMargin, topOffSet, rightOffSet, miniboxWidth;
     private int modColor = 0xFFFFFF;
@@ -54,7 +55,8 @@ public class HUD extends Module {
         if (Galacticc.instance.destructed){
             return;
         }
-        if (!egoe.type.equals(egoe.type.CROSSHAIRS)) {
+
+        if (egoe.type != RenderGameOverlayEvent.ElementType.CROSSHAIRS || !active) {
             return;
         }
 
@@ -117,5 +119,15 @@ public class HUD extends Module {
         }
     }
 
+    @Override
+    public void onEnabled() {
+        super.onEnabled();
+        this.active = true;
+    }
 
+    @Override
+    public void onDisabled() {
+        super.onDisabled();
+        this.active = false;
+    }
 }

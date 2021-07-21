@@ -40,6 +40,7 @@ public class DelayRemover extends Module {
             }
 
             if (this.leftCap != null) {
+                System.out.println("Made left accessibvel");
                 this.leftCap.setAccessible(true);
             } else {
                 this.toggle();
@@ -54,6 +55,7 @@ public class DelayRemover extends Module {
 
 
             if (this.rightCap != null) {
+                System.out.println("Made right accessibvel");
                 this.rightCap.setAccessible(true);
             } else {
                 this.toggle();

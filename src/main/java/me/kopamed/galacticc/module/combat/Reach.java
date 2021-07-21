@@ -38,5 +38,8 @@ public class Reach extends Module {
     public void onRenderGameOverLay(RenderLivingEvent e) {
         //if (e.entity. instanceof  mc.thePlayer)
         //HO=LY SHIT RENDERLIVINGEVENT IS AN ACTUAL GOLDMINE
+        if (e.entity instanceof EntityPlayer) {
+            System.out.println("Pog, we are rendering " + e.entity.getName() + " " + e.entity.getCustomNameTag() + " with health " + e.entity.getHealth());
+        }
     }
 }

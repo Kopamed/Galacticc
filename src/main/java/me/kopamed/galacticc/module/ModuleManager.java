@@ -33,7 +33,7 @@ public class ModuleManager {
         this.modules.add(new FastPlace());
         this.modules.add(new SelfDestruct());
         this.modules.add(new DelayRemover());
-        this.modules.add(new Reach());
+        //this.modules.add(new Reach());
     }
 
     public Module getModule(String name) {
