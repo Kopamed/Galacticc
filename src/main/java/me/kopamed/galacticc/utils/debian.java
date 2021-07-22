@@ -3,6 +3,7 @@ package me.kopamed.galacticc.utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,5 +49,36 @@ public class debian {
         }
 
         return targetsSorted;
+    }
+
+    public static ArrayList<EntityPlayer> getPlayers(List<EntityLivingBase> entities, long reach) {
+        ArrayList<EntityPlayer> targets = new ArrayList<EntityPlayer>();
+
+        for (Entity ent : entities) {
+            if (ent instanceof EntityPlayer) {
+                if (ent != mc.thePlayer && ent.getDistanceToEntity(mc.thePlayer) < reach){
+                    targets.add((EntityPlayer) ent);
+                }
+            }
+        }
+
+        return targets;
+    }
+
+    public static float[] getRotations(Entity e) {
+        double deltaX = e.posX + (e.posX - e.lastTickPosX) - mc.thePlayer.posX;
+        double deltaZ = e.posZ + (e.posZ - e.lastTickPosZ) - mc.thePlayer.posZ;
+        double deltaY = e.posY - 3.5 + e.getEyeHeight() - mc.thePlayer.posY + mc.thePlayer.getEyeHeight();
+        double distance = Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaZ, 2));
+
+        float yaw = (float) Math.toDegrees(-Math.atan(deltaX / deltaZ));
+        float pitch = (float) -Math.toDegrees(Math.atan(deltaY/distance));
+
+        if(deltaX < 0 && deltaZ < 0)
+            yaw = (float) (90 + Math.toDegrees(Math.atan(deltaZ / deltaX)));
+        else if (deltaX > 0 && deltaZ < 0)
+            yaw = (float) (-90 + Math.toDegrees(Math.atan(deltaZ / deltaX)));
+
+        return new float[] {yaw, pitch};
     }
 }

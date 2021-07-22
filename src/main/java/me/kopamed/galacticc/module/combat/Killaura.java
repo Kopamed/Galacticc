@@ -9,11 +9,16 @@ import me.kopamed.galacticc.utils.debian;
 import me.kopamed.galacticc.utils.mint;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityPainting;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemSword;
 import net.minecraft.network.play.client.C02PacketUseEntity;
+import net.minecraft.network.play.client.C03PacketPlayer;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Killaura extends Module {
@@ -33,7 +38,8 @@ public class Killaura extends Module {
     @SubscribeEvent
     public void onMotion(TickEvent.PlayerTickEvent e) {
         updateVals();
-        if(e.phase != TickEvent.Phase.START) {
+        EntityPlayer me = mc.thePlayer;
+        if(e.phase != TickEvent.Phase.START || mc.thePlayer.isSpectator()) {
             return;
         }
 
@@ -45,13 +51,32 @@ public class Killaura extends Module {
         }
 
         EntityLivingBase target = targets.get(0);
+        ArrayList<EntityPlayer> players = debian.getPlayers(targets, reach);
+        float pitch = mc.thePlayer.rotationPitch;
+        float cyaw = mc.thePlayer.rotationYaw;
+        me.rotationYaw = (debian.getRotations(target)[0]);
+        me.rotationPitch = (debian.getRotations(target)[1]);
+
+        //e.player.setRotationYawHead(debian.getRotations(target)[0]);
+
+        //e.player.rotationYaw = (debian.getRotations(target)[0]);
+        //e.player.rotationPitch = (debian.getRotations(target)[1]);
+        //mc.thePlayer.sendQueue.addToSendQueue(new C03PacketPlayer.C05PacketPlayerLook(debian.getRotations(target)[0], debian.getRotations(target)[1], mc.thePlayer.onGround));
+                /*
+        mc.thePlayer.rotationYaw = (debian.getRotations(target)[0]);
+        mc.thePlayer.rotationPitch = (debian.getRotations(target)[1]);
+        */
+
 
         if(mint.hasTimeElapsed(1000 / cps, true) && !mc.thePlayer.isBlocking()) {
             mc.thePlayer.swingItem();
-            if(autoBlock && mc.thePlayer.getHeldItem().getItem() instanceof ItemSword)
+            if(autoBlock && mc.thePlayer.getHeldItem() != null && mc.thePlayer.getHeldItem().getItem() instanceof ItemSword)
                 mc.thePlayer.getHeldItem().useItemRightClick(mc.theWorld, mc.thePlayer);
             mc.thePlayer.sendQueue.addToSendQueue(new C02PacketUseEntity(target, C02PacketUseEntity.Action.ATTACK));
         }
+
+        me.rotationPitch = pitch;
+        me.rotationYaw = cyaw;
     }
 
     public void updateVals() {

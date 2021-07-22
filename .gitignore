@@ -16,6 +16,7 @@ out
 # gradle
 build/*
 !build/libs
+build/libs/galacticc-1.0-*.jar
 .gradle
 
 # other
