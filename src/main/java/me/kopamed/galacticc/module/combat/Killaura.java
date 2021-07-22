@@ -1,12 +1,15 @@
 package me.kopamed.galacticc.module.combat;
 
 import akka.actor.dsl.Creators;
+import me.kopamed.galacticc.Galacticc;
 import me.kopamed.galacticc.module.Category;
 import me.kopamed.galacticc.module.Module;
+import me.kopamed.galacticc.settings.Setting;
 import me.kopamed.galacticc.utils.debian;
 import me.kopamed.galacticc.utils.mint;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.ItemSword;
 import net.minecraft.network.play.client.C02PacketUseEntity;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
@@ -14,19 +17,27 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 import java.util.List;
 
 public class Killaura extends Module {
-    private long cps;
+    private long cps, reach;
+    private boolean autoBlock;
     public Killaura() {
         super("Killaura", "Blatantly attacks enemies", true, false, Category.COMBAT);
-        this.cps = 10;
+        Setting cps = new Setting("CPS", this, 10, 0.1, 30, false);
+        Setting reach = new Setting("Reach", this, 6, 1, 8, false);
+        Setting autoBlock = new Setting("AutoBlock", this, false);
+
+        Galacticc.instance.settingsManager.rSetting(cps);
+        Galacticc.instance.settingsManager.rSetting(reach);
+        Galacticc.instance.settingsManager.rSetting(autoBlock);
     }
 
     @SubscribeEvent
     public void onMotion(TickEvent.PlayerTickEvent e) {
+        updateVals();
         if(e.phase != TickEvent.Phase.START) {
             return;
         }
 
-        List<EntityLivingBase> targets = debian.getTargets(4);
+        List<EntityLivingBase> targets = debian.getTargets(reach);
         targets = debian.sortByRange(targets);
 
         if (targets.isEmpty()) {
@@ -35,8 +46,17 @@ public class Killaura extends Module {
 
         EntityLivingBase target = targets.get(0);
 
-        if(mint.hasTimeElapsed(1000 / cps, true)) {
+        if(mint.hasTimeElapsed(1000 / cps, true) && !mc.thePlayer.isBlocking()) {
+            mc.thePlayer.swingItem();
+            if(autoBlock && mc.thePlayer.getHeldItem().getItem() instanceof ItemSword)
+                mc.thePlayer.getHeldItem().useItemRightClick(mc.theWorld, mc.thePlayer);
             mc.thePlayer.sendQueue.addToSendQueue(new C02PacketUseEntity(target, C02PacketUseEntity.Action.ATTACK));
         }
+    }
+
+    public void updateVals() {
+        this.cps = (long) Galacticc.instance.settingsManager.getSettingByName(this, "CPS") . getValDouble();
+        this.reach = (long) Galacticc.instance.settingsManager.getSettingByName(this, "Reach") . getValDouble();
+        this.autoBlock = Galacticc.instance.settingsManager.getSettingByName(this, "AutoBlock").getValBoolean();
     }
 }

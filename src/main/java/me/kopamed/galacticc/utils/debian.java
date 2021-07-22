@@ -10,7 +10,7 @@ import java.util.List;
 public class debian {
     private static Minecraft mc = Minecraft.getMinecraft();
 
-    public static List<EntityLivingBase> getTargets(int reach) {
+    public static List<EntityLivingBase> getTargets(long reach) {
         List<EntityLivingBase> targets = new ArrayList<EntityLivingBase>();
 
         for (Entity ent : mc.theWorld.loadedEntityList) {
