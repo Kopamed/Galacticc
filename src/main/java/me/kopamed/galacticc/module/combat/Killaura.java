@@ -38,7 +38,6 @@ public class Killaura extends Module {
     @SubscribeEvent
     public void onMotion(TickEvent.PlayerTickEvent e) {
         updateVals();
-        EntityPlayer me = mc.thePlayer;
         if(e.phase != TickEvent.Phase.START || mc.thePlayer.isSpectator()) {
             return;
         }
@@ -52,10 +51,6 @@ public class Killaura extends Module {
 
         EntityLivingBase target = targets.get(0);
         ArrayList<EntityPlayer> players = debian.getPlayers(targets, reach);
-        float pitch = mc.thePlayer.rotationPitch;
-        float cyaw = mc.thePlayer.rotationYaw;
-        me.rotationYaw = (debian.getRotations(target)[0]);
-        me.rotationPitch = (debian.getRotations(target)[1]);
 
         //e.player.setRotationYawHead(debian.getRotations(target)[0]);
 
@@ -66,7 +61,7 @@ public class Killaura extends Module {
         mc.thePlayer.rotationYaw = (debian.getRotations(target)[0]);
         mc.thePlayer.rotationPitch = (debian.getRotations(target)[1]);
         */
-
+        mc.thePlayer.sendQueue.addToSendQueue(new C03PacketPlayer.C06PacketPlayerPosLook(mc.thePlayer.posX, mc.thePlayer.getEntityBoundingBox().minY, mc.thePlayer.posZ, debian.getRotations(target)[0], debian.getRotations(target)[1], mc.thePlayer.onGround));
 
         if(mint.hasTimeElapsed(1000 / cps, true) && !mc.thePlayer.isBlocking()) {
             mc.thePlayer.swingItem();
@@ -74,9 +69,6 @@ public class Killaura extends Module {
                 mc.thePlayer.getHeldItem().useItemRightClick(mc.theWorld, mc.thePlayer);
             mc.thePlayer.sendQueue.addToSendQueue(new C02PacketUseEntity(target, C02PacketUseEntity.Action.ATTACK));
         }
-
-        me.rotationPitch = pitch;
-        me.rotationYaw = cyaw;
     }
 
     public void updateVals() {
