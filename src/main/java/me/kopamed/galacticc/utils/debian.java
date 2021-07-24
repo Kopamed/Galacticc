@@ -16,7 +16,7 @@ public class debian {
 
         for (Entity ent : mc.theWorld.loadedEntityList) {
             if (ent instanceof EntityLivingBase) {
-                if (ent != mc.thePlayer && ent.getDistanceToEntity(mc.thePlayer) < reach){
+                if (!ent.isDead &&  ((EntityLivingBase) ent).getHealth() > 0 && ent != mc.thePlayer && ent.getDistanceToEntity(mc.thePlayer) < reach){
                     targets.add((EntityLivingBase) ent);
                 }
             }
