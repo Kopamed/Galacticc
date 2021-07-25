@@ -44,10 +44,22 @@ public class HUD extends Module {
         Setting textShadow = new Setting("Text Shadow", this, true);
         Setting arrayListSort = new Setting("Arraylist sort", this, "Length long > short", sort);
 
+        Setting margin = new Setting("Module padding", this, 2, 0, 10, true);
+        Setting waterMarkMargin = new Setting("Watermark padding", this, 3, 0, 10, true);
+        Setting miniboxWidth = new Setting("Mini box width", this, 1, 0, 10, true);
+        Setting topOffSet = new Setting("HUD top offset", this, 4, 0, 10, true);
+        Setting rightOffSet = new Setting("HUD right offset", this, 4, 0, 10, true);
+
         Galacticc.instance.settingsManager.rSetting(arrayListSort);
         Galacticc.instance.settingsManager.rSetting(waterMark);
         Galacticc.instance.settingsManager.rSetting(background);
         Galacticc.instance.settingsManager.rSetting(textShadow);
+
+        Galacticc.instance.settingsManager.rSetting(margin);
+        Galacticc.instance.settingsManager.rSetting(waterMarkMargin);
+        Galacticc.instance.settingsManager.rSetting(miniboxWidth);
+        Galacticc.instance.settingsManager.rSetting(topOffSet);
+        Galacticc.instance.settingsManager.rSetting(rightOffSet);
     }
 
     @SubscribeEvent
@@ -68,11 +80,11 @@ public class HUD extends Module {
         ScaledResolution sr = new ScaledResolution(Minecraft.getMinecraft());
 
 
-        margin = 2;
-        waterMarkMargin = 3;
-        topOffSet = 4;
-        rightOffSet = 4;
-        miniboxWidth = 1;
+        margin = (int) Galacticc.instance.settingsManager.getSettingByName(this, "Module padding").getValDouble();
+        waterMarkMargin = (int) Galacticc.instance.settingsManager.getSettingByName(this, "Watermark padding").getValDouble();
+        topOffSet = (int) Galacticc.instance.settingsManager.getSettingByName(this, "HUD top offset").getValDouble();;
+        rightOffSet = (int) Galacticc.instance.settingsManager.getSettingByName(this, "HUD right offset").getValDouble();;
+        miniboxWidth = (int) Galacticc.instance.settingsManager.getSettingByName(this, "Mini box width").getValDouble();;
 
         if(watermark) {
             String waterMarkText = Galacticc.MODID + Galacticc.VERSION.toUpperCase();

@@ -22,10 +22,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
-import org.lwjgl.Sys;
 import org.lwjgl.input.Mouse;
 
-import java.util.ArrayList;
 
 public class AutoClicker extends Module {
     private long lastClick;
